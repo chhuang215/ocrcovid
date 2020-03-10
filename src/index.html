@@ -1,0 +1,42 @@
+<!doctype html>
+
+<html>
+<head>
+  <meta charset="utf-8">
+
+  <title>ocr</title>
+  <!-- <meta name="description" content="The HTML5 Herald"> -->
+  <!-- <meta name="author" content="SitePoint"> -->
+
+  <!-- <link rel="stylesheet" href="css/styles.css?v=1.0"> -->
+  <style>
+      
+      html{
+          background-color: darkslategrey;
+          color:lightgrey;
+
+      }
+  </style>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io.connect('http://localhost:3000');
+    socket.on('updateDataClient', function (data, time) {
+        document.getElementById('loading').innerHTML="";
+        // document.getElementById('ccase').innerHTML = data;
+        document.getElementById('updateTime').innerHTML = time;
+        document.getElementById('ccaseimg').src =data;
+    });
+
+</script>
+</head>
+
+
+
+<body>
+  <!-- <script src="js/scripts.js"></script> -->
+  <img id="ccaseimg"/>
+  <div id="loading">LOADING..sdfdsf.</div>
+  <h1 id="ccase"></h1>
+  <h2 id="updateTime"></h2>
+</body>
+</html>
