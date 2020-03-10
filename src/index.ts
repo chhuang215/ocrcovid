@@ -45,9 +45,9 @@ function getCaseData(){
     // }
     // await worker.terminate();
   })().then(() => {
-    var today = new Date();
-    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-    io.emit('updateDataClient', time);
+    
+    
+    io.emit('updateDataClient');
     console.log("should update ");
     
     // console.log();
