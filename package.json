@@ -2,11 +2,13 @@
   "name": "ocr",
   "version": "1.0.0",
   "description": "",
-  "main": "./dist/main.js",
+  "main": "./dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
-    "dev": "webpack --mode development"
+    "dev": "webpack --mode development",
+    "serve": "node ./dist/index.js",
+    "start": "npm run dev && npm run serve"
   },
   "author": "",
   "license": "ISC",
