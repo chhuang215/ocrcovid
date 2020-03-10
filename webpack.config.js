@@ -4,19 +4,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
 
-// var fs = require('fs');
- 
-// var nodeModules = {};
-// fs.readdirSync('node_modules')
-//   .filter(function (x) {
-//     return ['.bin'].indexOf(x) === -1;
-//   })
-//   .forEach(function (mod) {
-//     nodeModules[mod] = 'commonjs ' + mod;
-//   });
-
 module.exports = {
-    entry: path.resolve('./src/index.ts'),
+    entry: {
+        index: path.resolve('./src/index.ts')   
+    },
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].js'
@@ -48,9 +39,8 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             template: './src/index.html',
-            // filename: './index.html'
         }),
-        new CleanWebpackPlugin(),
+        // new CleanWebpackPlugin(),
     ],
     externals: [ nodeExternals()],
     // watch: NODE_ENV === 'development'
