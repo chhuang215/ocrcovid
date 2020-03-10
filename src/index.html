@@ -17,17 +17,7 @@
 
       }
   </style>
-  <script src="/socket.io/socket.io.js"></script>
-  <script>
-    var socket = io.connect('http://localhost:3000');
-    socket.on('updateDataClient', function (data, time) {
-        document.getElementById('loading').innerHTML="";
-        // document.getElementById('ccase').innerHTML = data;
-        document.getElementById('updateTime').innerHTML = time;
-        document.getElementById('ccaseimg').src =data;
-    });
-
-</script>
+  
 </head>
 
 
@@ -35,8 +25,31 @@
 <body>
   <!-- <script src="js/scripts.js"></script> -->
   <img id="ccaseimg"/>
-  <div id="loading">LOADING..sdfdsf.</div>
+  <div id="loading">LOADING...</div>
   <h1 id="ccase"></h1>
   <h2 id="updateTime"></h2>
 </body>
+
+<script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io.connect('http://localhost:3000');
+
+    function reload(){
+      var today = new Date();
+      // var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+      document.getElementById('loading').innerHTML="";
+      // document.getElementById('ccase').innerHTML = data;
+      document.getElementById('updateTime').innerHTML = "Last update: " + today.toLocaleTimeString('en-us');
+      document.getElementById('ccaseimg').src = 'ccase.png';
+    }
+
+    socket.on('updateDataClient', function () {
+        reload();
+    });
+    document.addEventListener("DOMContentLoaded", function(){
+      reload();
+    });
+    
+
+</script>
 </html>

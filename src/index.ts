@@ -1,11 +1,11 @@
 import express , {Router}from 'express';
 import path from 'path';
-// import Tesseract from 'tesseract.js';
+// import Tesseract, {createWorker}  from 'tesseract.js';
 import puppeteer from 'puppeteer';
 import http from 'http';
 import socketIO from 'socket.io';
-import fs from 'fs';
 const app = express();
+
 const router = Router();
 const port = 3000;
 
@@ -13,14 +13,7 @@ const server = http.createServer(app);
 
 var io = socketIO(server);
 
-// const { createWorker } = Tesseract;
-
-
-
-const ccaseFilePath = path.join(__dirname, 'ccase.png');
-
-var dataRead = null;
-
+const ccaseFilePath = path.join(__dirname, '/public/ccase.png');
 
 function getCaseData(){
     // const worker = createWorker({
@@ -54,13 +47,8 @@ function getCaseData(){
   })().then(() => {
     var today = new Date();
     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-
-    fs.readFile(ccaseFilePath, function(err, data){
-
-        io.emit('updateDataClient', "data:image/png;base64,"+ data.toString("base64"),time);
-        console.log("should update ");
-    });
-
+    io.emit('updateDataClient', time);
+    console.log("should update ");
     
     // console.log();
   })
@@ -70,7 +58,7 @@ function getCaseData(){
 getCaseData();
 
 app.use('/', router);
-
+router.use(express.static(__dirname + '/public'));
 router.get('/',function(req,res){
     console.log(__dirname);
   res.sendFile( path.join(__dirname, './index.html'));
