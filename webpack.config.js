@@ -4,14 +4,20 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
 
+const {
+    NODE_ENV = 'development',
+  } = process.env;
+
 module.exports = {
     entry: {
-        index: path.resolve('./src/index.ts')   
+        app: path.resolve('./src/app.ts'),
+        'public/script': path.resolve('./src/public/script.ts')
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].js'
     },
+    mode: NODE_ENV,
     target: "node",
     node: {
         // Need this when working with express, otherwise the build fails
@@ -39,11 +45,12 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             template: './src/index.html',
+            inject:false,
         }),
         // new CleanWebpackPlugin(),
     ],
     externals: [ nodeExternals()],
-    // watch: NODE_ENV === 'development'
+    // watch: NODE_ENV === 'development',
     resolve: {
         extensions: [".ts", ".js"],
     },
