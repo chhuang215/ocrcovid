@@ -16,10 +16,14 @@ var io = socketIO(server);
 const ccaseFilePath = path.join(__dirname, '/public/ccase.png');
 const dcaseFilePath = path.join(__dirname, '/public/dcase.png');
 
-var updatetime = new Date();
+var countDown = false;
+
+var updatetime = Date.now();
 
 function getCaseData(){
-    
+  countDown = false;
+  updatetime = Date.now();
+
   (async function() {
     const browser = await puppeteer.launch({
       // headless:false,
@@ -47,13 +51,14 @@ function getCaseData(){
   
     
   })().then(() => {
-    io.emit('updateDataClient');
+    io.emit('updateDataClient', updatetime);
     console.log("update data");
     
     // console.log();
+    countDown = true;
   })
 
-  updatetime = new Date();
+  
 }
 
 async function reader(){
@@ -71,19 +76,18 @@ async function reader(){
 }
 
 
-getCaseData();
 
 app.use('/', router);
-router.use(express.static(__dirname + '/public'));
+router.use(express.static(path.join(__dirname, 'public')));
 router.get('/',function(req,res){
     console.log(__dirname);
-  res.sendFile( path.join(__dirname, './index.html'));
+  res.sendFile( path.join(__dirname, 'index.html'));
   //__dirname : It will resolve to your project folder.
 });
 
 router.get('/getupdatetime', (req,res)=>{
-  console.log('send time' + updatetime.toISOString());
-  res.send( updatetime.toISOString());
+  console.log('send time ' + updatetime);
+  res.json({time: updatetime});
 })
   
 io.on('connection', function (socket) {
@@ -98,14 +102,21 @@ server.listen(port, ()=>{
     console.log(`server is listening on ${port}`);
 });
 
-var count = 20
+
+
+getCaseData();
+
+var count = 30
 
 setInterval(() => {
-  count --;
-  io.emit('counter', count);
-
-  if (count < 0){
-    getCaseData();
-    count = 20;
+  if (countDown)
+  {
+    io.emit('counter', count);
+    count --;
+    if (count < 0){
+      getCaseData();
+      count = 3600;
+    }
   }
+  
 }, 1000);
