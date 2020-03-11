@@ -4,69 +4,43 @@
 <head>
   <meta charset="utf-8">
 
-  <title>ocr</title>
+  <title>Cases</title>
   <!-- <meta name="description" content="The HTML5 Herald"> -->
   <!-- <meta name="author" content="SitePoint"> -->
 
   <!-- <link rel="stylesheet" href="css/styles.css?v=1.0"> -->
   <style>
       
+      
+
       html{
-          background-color: darkslategrey;
+          background-color: rgb(18, 43, 58);
           color:lightgrey;
 
+      }
+
+      img{
+       border-radius: .4em; 
+      }
+
+      .container{
+        margin: 0 auto;
+        padding-top: 13px;
+        text-align: center;
       }
   </style>
   
 </head>
-
-
-
 <body>
-  <!-- <script src="js/scripts.js"></script> -->
-  <img id="ccaseimg"/>
-  <img id="dcaseimg"/>
-  <div id="loading">LOADING...</div>
-  <h2 id="updateTime"></h2>
-  <h2 id="counter">-1</h2>
+  <div class="container">
+    <img id="ccaseimg"/>
+    <img id="dcaseimg"/>
+    <div id="loading">LOADING...</div>
+    <h2 id="updateTime"></h2>
+    <h3 id="counter"></h3> 
+  </div>
 </body>
 
 <script src="/socket.io/socket.io.js"></script>
-  <script>
-    var socket = io.connect('http://localhost:3000');
-
-    function reload(){
-
-      var xmlHttp = new XMLHttpRequest();
-      xmlHttp.onreadystatechange = function() { 
-          if (xmlHttp.readyState == 4 && xmlHttp.status == 200){
-              document.getElementById('updateTime').innerHTML = new Date(Date.parse(xmlHttp.responseText)).toLocaleTimeString('en-us');
-          }
-      }
-      xmlHttp.open("GET", 'http://localhost:3000/getupdatetime', true); // true for asynchronous 
-      xmlHttp.send();
-
-      
-      // var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-      document.getElementById('loading').innerHTML="";
-      // document.getElementById('ccase').innerHTML = data;
-      
-      document.getElementById('ccaseimg').src = 'ccase.png';
-      document.getElementById('dcaseimg').src = 'dcase.png';
-    }
-
-    socket.on('updateDataClient', function () {
-        reload();
-    });
-
-    socket.on('counter', function (count) {
-      document.getElementById('counter').innerText = count;
-    });
-
-    document.addEventListener("DOMContentLoaded", function(){
-      reload();
-    });
-    
-
-</script>
+<script src="script.js"></script>
 </html>
