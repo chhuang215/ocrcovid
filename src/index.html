@@ -25,9 +25,10 @@
 <body>
   <!-- <script src="js/scripts.js"></script> -->
   <img id="ccaseimg"/>
+  <img id="dcaseimg"/>
   <div id="loading">LOADING...</div>
-  <h1 id="ccase"></h1>
   <h2 id="updateTime"></h2>
+  <h2 id="counter">-1</h2>
 </body>
 
 <script src="/socket.io/socket.io.js"></script>
@@ -35,17 +36,33 @@
     var socket = io.connect('http://localhost:3000');
 
     function reload(){
-      var today = new Date();
+
+      var xmlHttp = new XMLHttpRequest();
+      xmlHttp.onreadystatechange = function() { 
+          if (xmlHttp.readyState == 4 && xmlHttp.status == 200){
+              document.getElementById('updateTime').innerHTML = new Date(Date.parse(xmlHttp.responseText)).toLocaleTimeString('en-us');
+          }
+      }
+      xmlHttp.open("GET", 'http://localhost:3000/getupdatetime', true); // true for asynchronous 
+      xmlHttp.send();
+
+      
       // var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
       document.getElementById('loading').innerHTML="";
       // document.getElementById('ccase').innerHTML = data;
-      document.getElementById('updateTime').innerHTML = "Last update: " + today.toLocaleTimeString('en-us');
+      
       document.getElementById('ccaseimg').src = 'ccase.png';
+      document.getElementById('dcaseimg').src = 'dcase.png';
     }
 
     socket.on('updateDataClient', function () {
         reload();
     });
+
+    socket.on('counter', function (count) {
+      document.getElementById('counter').innerText = count;
+    });
+
     document.addEventListener("DOMContentLoaded", function(){
       reload();
     });
