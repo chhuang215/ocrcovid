@@ -5,7 +5,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
 
 const {
-    NODE_ENV = 'development',
+    NODE_ENV = 'production',
   } = process.env;
 
 module.exports = {
@@ -50,7 +50,7 @@ module.exports = {
         // new CleanWebpackPlugin(),
     ],
     externals: [ nodeExternals()],
-    // watch: NODE_ENV === 'development',
+    watch: NODE_ENV === 'development',
     resolve: {
         extensions: [".ts", ".js"],
     },

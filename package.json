@@ -7,15 +7,14 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "NODE_ENV=production webpack --config ./webpack.production.config.js",
     "dev": "webpack --mode development",
-    "serve": "node ./dist/app.js",
-    "start": "npm run dev && npm run serve"
+    "start": "node ./dist/app.js",
+    "serve": "npm run dev && npm start"
   },
   "author": "Chih-Hsuan Huang",
   "license": "ISC",
   "dependencies": {
     "@types/socket.io-client": "^1.4.32",
     "express": "^4.17.1",
-    "node-fetch": "^2.6.0",
     "puppeteer": "^2.1.1",
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.0",
