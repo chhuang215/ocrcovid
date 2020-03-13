@@ -61,19 +61,17 @@ function getCaseData(){
   
 }
 
-async function reader(){
-  // const worker = createWorker({
-  //     cachePath: __dirname
-  // });
-  // await worker.load();
-  // await worker.loadLanguage('chi_tra');
-  // await worker.initialize('chi_tra');
-  // const { data: { text } } = await worker.recognize(ccaseFilePath);
-  // if (dataRead != text){
-  //     dataRead = text;
-  // }
-  // await worker.terminate();
-}
+// async function reader(){
+//   const worker = createWorker({
+//       cachePath: __dirname
+//   });
+//   await worker.load();
+//   await worker.loadLanguage('chi_tra');
+//   await worker.initialize('chi_tra');
+//   const { data: { text } } = await worker.recognize(ccaseFilePath);
+//   const { data: { text } } = await worker.recognize(ccaseFilePath);
+//   await worker.terminate();
+// }
 
 
 

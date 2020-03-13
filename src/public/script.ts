@@ -18,6 +18,8 @@ function reload(){
 
     // var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     document.getElementById('loading').innerHTML="";
+    document.getElementById('loading').setAttribute('class', '');
+    
     // document.getElementById('ccase').innerHTML = data;
     
     document.getElementById('ccaseimg').setAttribute('src', 'ccase.png');
@@ -42,7 +44,7 @@ socket.on('counter', function (count) {
         document.getElementById('counter').innerText = countFormat;
     }
     else{
-        document.getElementById('counter').innerText = " REFRESHING..";
+        document.getElementById('counter').innerHTML = '<div class="lds-dual-ring"></div>';
     }
 });
 

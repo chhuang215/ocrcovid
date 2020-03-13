@@ -12,7 +12,6 @@
   <style>
       
       
-
       html{
           background-color: rgb(18, 43, 58);
           color:lightgrey;
@@ -28,6 +27,34 @@
         padding-top: 13px;
         text-align: center;
       }
+
+      .lds-dual-ring {
+          display: inline-block;
+          width: 80px;
+          height: 80px;
+      }
+      .lds-dual-ring:after {
+        content: " ";
+        display: block;
+        width: 32px;
+        height: 32px;
+        margin: 0 auto;
+        border-radius: 50%;
+        border: 6px solid #fff;
+        border-color: #fff transparent #fff transparent;
+        animation: lds-dual-ring 1.2s linear infinite;
+      }
+      @keyframes lds-dual-ring {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+
+
   </style>
   
 </head>
@@ -35,7 +62,7 @@
   <div class="container">
     <img id="ccaseimg"/>
     <img id="dcaseimg"/>
-    <div id="loading">LOADING...</div>
+    <div id="loading" class="lds-dual-ring">LOADING...</div>
     <h2 id="updateTime"></h2>
     <h3 id="counter"></h3> 
   </div>
